@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body ng-controller="mycontroller">
+    <ul class="breadcrumb">
+        <li ng-repeat="menu in menus">{{menu}}</li>
+    </ul>
+
+    <div class="container-fluid">
+        <input type="text" size="30" ng-model="searching" placeholder="Enter searching">
+        <br><br>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">User Management</div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td ng-repeat="col in columns">{{col}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="student in dataList|filter:searching"> 
+                            <td>{{student.no}}</td>
+                            <td>{{student.fullname|uppercase}}</td>
+                            <td>{{student.address}}</td>
+                            <td>{{student.age}}</td>
+                            <td>{{student.email|lowercase}}</td>
+                            <td>{{student.phone_number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel-footer">{{price|currency: "VND"}} - Today: {{today|date: "dd/MM/yyyy"}}</div>
+        </div>
+        
+        <div class="panel panel-primary">
+            <div class="panel-heading">Add user</div>
+            <div class="panel-body">
+                <input placeholder="Enter fullname" ng-model="fullname" type="text" name="fullname" size="50">
+                <br><br>
+                <input placeholder="Enter address" ng-model="address" type="text" name="address" size="50">
+                <br><br>
+                <input placeholder="Enter age" ng-model="age" type="number" name="age" size="20">
+                <br><br>
+                <input placeholder="Enter email" ng-model="email" type="email" name="email" size="50">
+                <br><br>
+                <input placeholder="Enter phone number" ng-model="phone_number" type="tel" name="phone_number" size="50">
+                <br><br>
+                <input ng-click="add_user()" type="button" value="Add user">
+                <input type="button" value="Sort">
+                <input type="button" value="Reset">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var app = angular.module("myapp", []);
+        app.controller('mycontroller', function($scope) {
+            $scope.dataList = [];
+            $scope.menus = ['Home', 'User Management', 'Add user', 'Sign up', 'Sign in'];
+            $scope.columns = ['No', 'Fullname', 'Address', 'Age', 'Email', 'Phone number'];
+
+            $scope.price = 1000000;
+            $scope.today = new Date();
+
+            $scope.add_user = function() {
+                var student = {
+                    "no": this.dataList.length + 1,
+                    "fullname": this.fullname,
+                    "address": this.address,
+                    "age": this.age,
+                    "email": this.email,
+                    "phone_number": this.phone_number
+                };
+                this.dataList[this.dataList.length] = student;
+            }
+        });
+    </script>
+</body>
+
+</html>

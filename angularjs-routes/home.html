@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body ng-controller="mycontroller">
+
+    <div class="container-fluid">
+        <br><br>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">Home page</div>
+            </div>
+            <div class="panel-body">
+                <h1>Wellcome to Home page!</h1>
+            </div>
+            <div class="panel-footer">Today: {{today|date: "dd/MM/yyyy"}}</div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var app = angular.module("myapp", []);
+        app.controller('mycontroller', function($scope) {
+            $scope.today = new Date();
+        });
+    </script>
+</body>
+
+</html>
